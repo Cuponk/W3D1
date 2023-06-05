@@ -60,8 +60,39 @@ class Array
         new_arr
         # hsh
     end
+
+    def my_rotate(num=1)
+    res = []
+    self.each.with_index do |ele, idx|
+        res << self[(idx+num)%self.length]
+    end
+    res
+    end
     
+
+    def my_join(x="")
+        res = ""
+        self.each.with_index do |i, idx|
+            res += i
+            if idx != self.length-1
+                res += x
+            end
+        end
+        res
+    end
+
+    def my_reverse
+        res = []
+        i = self.length-1
+        while i >= 0
+            res << self[i]
+            i -= 1
+        end
+        res
+    end
 end
+
+
 
 # calls my_each twice on the array, printing all the numbers twice.
 return_value = [1, 2, 3].my_each do |num|
@@ -117,15 +148,16 @@ puts "////////"
 # d = [13, 14, 15]
 # p [1, 2].my_zip(a, b, c, d)    # => [[1, 4, 7, 10, 13], [2, 5, 8, 11, 14]]
 
-# a = [ "a", "b", "c", "d" ]
-# p a.my_rotate         #=> ["b", "c", "d", "a"]
-# p a.my_rotate(2)      #=> ["c", "d", "a", "b"]
-# p a.my_rotate(-3)     #=> ["b", "c", "d", "a"]
-# p a.my_rotate(15)     #=> ["d", "a", "b", "c"]
+a = [ "a", "b", "c", "d" ]
+p a.my_rotate         #=> ["b", "c", "d", "a"]
+p a.my_rotate(2)      #=> ["c", "d", "a", "b"]
+p a.my_rotate(-3)     #=> ["b", "c", "d", "a"]
+p a.my_rotate(15)     #=> ["d", "a", "b", "c"]
 
-# a = [ "a", "b", "c", "d" ]
-# p a.my_join         # => "abcd"
-# p a.my_join("$")    # => "a$b$c$d"
+a = [ "a", "b", "c", "d" ]
+p a.my_join         # => "abcd"
+p a.my_join("$")    # => "a$b$c$d"
+puts "////////"
 
-# p [ "a", "b", "c" ].my_reverse   #=> ["c", "b", "a"]
-# p [ 1 ].my_reverse               #=> [1]
+p [ "a", "b", "c" ].my_reverse   #=> ["c", "b", "a"]
+p [ 1 ].my_reverse               #=> [1]
