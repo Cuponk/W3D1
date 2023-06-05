@@ -46,11 +46,17 @@ class Array
     end
 
     def my_zip(*arr)
-        max = 0 
-        arr.each {|ele| max = ele.length if ele.length > max}
-
-        new_arr = Array.new {Array.new(max)}
-        (0...arr.length).each
+        new_arr = Array.new(self.length) {Array.new(arr.length + 1)}
+        hsh = Hash.new {Array.new()}
+        arr.each do |ele|
+          ele.each.with_index { |i, idx| hsh[idx] += [i] }
+        end
+        hsh.each do |key, val|
+            val.each.with_index do |ele, idx|
+            new_arr[key][idx] = ele
+            end
+        end
+        new_arr
     end
     
 end
@@ -95,11 +101,12 @@ puts "////////"
 p [1, 2, 3, [4, [5, 6]], [[[7]], 8]].my_flatten # => [1, 2, 3, 4, 5, 6, 7, 8]
 puts "////////"
 
-# a = [ 4, 5, 6 ]
-# b = [ 7, 8, 9 ]
-# p [1, 2, 3].my_zip(a, b) # => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
-# p a.my_zip([1,2], [8])   # => [[4, 1, 8], [5, 2, nil], [6, nil, nil]]
-# p [1, 2].my_zip(a, b)    # => [[1, 4, 7], [2, 5, 8]]
+a = [ 4, 5, 6 ]
+b = [ 7, 8, 9 ]
+print [1, 2, 3].my_zip(a, b) # => [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+print a.my_zip([1,2], [8])   # => [[4, 1, 8], [5, 2, nil], [6, nil, nil]]
+print [1, 2].my_zip(a, b)    # => [[1, 4, 7], [2, 5, 8]]
+puts "////////"
 
 # c = [10, 11, 12]
 # d = [13, 14, 15]
