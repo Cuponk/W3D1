@@ -48,6 +48,9 @@ class Array
   end
 
   def my_map(&prc)
+    res = []
+    self.each { |i| res << prc.call(i) }
+    res
   end
 
   def my_select(&prc)
@@ -57,11 +60,20 @@ class Array
   end
 
   def my_inject(&blk)
+    acc = self[0]
+    (1..self.length-1).each do |i|
+      acc += yield(self[i])
+    end
+    acc
   end
-
 end
 
+
 def concatenate(strings)
+  res = ''
+  strings.each  |i| do
+    res += i
+  end
 end
 
 p factors(20)
@@ -76,4 +88,6 @@ arr.bubble_sort!
 p arr
 arr2.bubble_sort! { |num1, num2| num2 <=> num1 } 
 p arr2
+
+p [1, 3, 4].my_inject {|i| i * 2 }
 
